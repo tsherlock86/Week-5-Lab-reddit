@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+
+  <div class="col-xs-8">
+    <% @links.each do |link| %>
+
+      <tr>
+        <td><%= link_to link.title, link.url %> <%= link_to truncate(link.url, length: 18), link.url %></td>
+      <tr>
+      <ul class="list-inline">
+        <li><%= link_to 'show', link %></li>
+        <li><%= link_to 'edit', edit_link_path(link) %></li>
+        <li><%= link_to 'delete', link, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        <li><%= %></li>
+        <li><%= button_to '+1', upvote_link_path(link), method: :post %></li>
+      </ul>
+    <% end %>
+</div>
+
+<br>
+<li><%= %></li>
