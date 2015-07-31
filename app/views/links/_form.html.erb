@@ -16,16 +16,12 @@
     <%= f.text_field :title %>
   </div>
   <div class="field">
+    <%= f.label :summary %><br>
+    <%= f.text_field :summary %>
+  </div>
+  <div class="field">
     <%= f.label :url %><br>
     <%= f.text_field :url %>
-  </div>
-  <div class="field">
-    <%= f.label :link_id %><br>
-    <%= f.number_field :link_id %>
-  </div>
-  <div class="field">
-    <%= f.label :vote %><br>
-    <%= f.number_field :vote %>
   </div>
   <div class="actions">
     <%= f.submit %>
