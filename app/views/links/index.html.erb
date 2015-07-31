@@ -3,18 +3,24 @@
 
   <div class="col-xs-8">
     <% @links.each do |link| %>
+    <% if link.user == current_user %>
+      <td><%= link_to 'edit', edit_link_path(:id => link.id) %></td>
+      <td><%= link_to 'Destroy', @link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
 
       <ul>
-        <li class="list-inline"><strong><%= link_to link.title, link.url %> <%= link_to truncate(link.url, length: 18), link.url %></strong></li>
-        <li><%= truncate(link.summary, length: 80) %> </li>
+        <li class="list-inline"><strong><%= link_to link.title, upvotedlink_link_path(:id => link.id) %>
+
+          <%= link_to truncate(link.url, length: 18), link.url %></strong></li>
+        <li><%= truncate(link.summary, length: 80) %></li>
       </ul>
       <ul class="list-inline">
         <li><%= link_to 'show', link %></li>
-        <li><%= link_to 'edit', edit_link_path(link) %></li>
+        <li><%= link_to 'edit', edit_link_path(:id => link.id) %></li>
         <li><%= link_to 'delete', link, method: :delete, data: { confirm: 'Are you sure?' } %></li>
         <td><%= pluralize(link.votes.count, "vote") %></td>
     <td><%= button_to '+1', upvote_link_path(link), method: :post %></td>
-    <td><%= button_to '-1', downvote_link_path(link), delete: :post %></td>
+    <td><%= button_to '-1', downvote_link_path(link), method: :post %></td>
       </ul>
     <% end %>
 </div>

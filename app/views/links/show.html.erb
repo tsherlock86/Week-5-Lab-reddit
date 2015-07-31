@@ -10,15 +10,5 @@
   <%= @link.url %>
 </p>
 
-<p>
-  <strong>Link:</strong>
-  <%= @link.link_id %>
-</p>
-
-<p>
-  <strong>Vote:</strong>
-  <%= @link.vote %>
-</p>
-
-<%= link_to 'Edit', edit_link_path(@link) %> |
+<%= link_to 'Edit', edit_links_path(@link) %> |
 <%= link_to 'Back', links_path %>
