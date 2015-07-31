@@ -5,7 +5,7 @@
     <% @links.each do |link| %>
     <% if link.user == current_user %>
       <td><%= link_to 'edit', edit_link_path(:id => link.id) %></td>
-      <td><%= link_to 'Destroy', @link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'delete', @link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>
 
       <ul>
