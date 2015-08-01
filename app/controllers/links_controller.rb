@@ -16,7 +16,6 @@ class LinksController < ApplicationController
 
   # GET /links/new
   def new
-    @link = Link.new
     @link = current_user.links.build
   end
 
@@ -27,7 +26,6 @@ class LinksController < ApplicationController
   # POST /links
   # POST /links.json
   def create
-    @link = Link.new(link_params)
     @link = current_user.links.build(link_params)
 
     respond_to do |format|
@@ -81,7 +79,7 @@ class LinksController < ApplicationController
   def upvotedlink
     @link = Link.find(params[:id])
     @link.votes.create
-    redirect_to(@link.url)
+    redirect_to (@link.url)
   end
 
   def authorized_user
@@ -97,6 +95,6 @@ class LinksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:title, :url, :link_id, :vote)
+      params.require(:link).permit(:title, :summary, :url, :link_id, :vote)
     end
 end

@@ -4,11 +4,18 @@
   <strong>Title:</strong>
   <%= @link.title %>
 </p>
+<p>
+  <strong>Summary</strong>
+  <%= @link.summary %>
 
+</p>
 <p>
   <strong>Url:</strong>
   <%= @link.url %>
+<h1><a href="<%= @link.url %>"><%= @link.title %></a><br> <small>Submitted by <%= @link.user.name %></small></h1>
+
 </p>
 
+<%= @link.inspect %>
 <%= link_to 'Edit', edit_link_path(@link) %> |
 <%= link_to 'Back', links_path %>
