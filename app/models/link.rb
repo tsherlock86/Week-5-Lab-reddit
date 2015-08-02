@@ -1,15 +1,15 @@
 class Link < ActiveRecord::Base
 
-has_many :votes, dependent: :destroy
+has_many :votes, dependent: :destroy, :counter_cache :true
 
 belongs_to :user
 
   def upvote
-    votes.first.upvote += 1
+     Vote.create(votes.first.upvote += 1)
   end
 
   def downvote
-    votes.first.downvote += 1
+    Vote.create(votes.first.downvote += 1)
   end
 
   def scoring
@@ -17,11 +17,11 @@ belongs_to :user
   end
 
   def upvotecount
-    votes.first.upvote
+    votes.first.upvotes.size
   end
 
   def downvotecount
-    votes.first.downvote
+      votes.first.downvote.size
   end
 
 

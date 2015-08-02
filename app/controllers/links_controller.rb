@@ -67,11 +67,13 @@ class LinksController < ApplicationController
   end
 
   def upvoted
+    @link = Link.find(params[:id])
     @link.upvote
     redirect_to(links_path)
   end
 
   def downvoted
+    @link = Link.find(params[:id])
     @link.downvote
     redirect_to(links_path)
   end
@@ -79,6 +81,7 @@ class LinksController < ApplicationController
   def upvotedlink
     @link = Link.find(params[:id])
     @link.upvote
+    @link.update.save
     redirect_to (@link.url)
   end
 

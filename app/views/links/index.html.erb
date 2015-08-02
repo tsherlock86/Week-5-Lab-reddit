@@ -15,7 +15,7 @@
       <li><%= link_to 'edit', edit_link_path(:id => link.id) %></li>
       <li><%= link_to 'delete', link, method: :delete, data: { confirm: 'Are you sure?' } %></li>
       <% end %>
-      <td><%= pluralize(link.scoring, "vote") %><small class="author"> Submitted <%= time_ago_in_words(link.created_at) %> by <%= link.user.try(:name)%></small></td>
+      <li><%= pluralize(link.scoring, "vote") %><small class="author"> Submitted <%= time_ago_in_words(link.created_at) %> by <%= link.user.try(:name)%></small></li>
 
     </ul>
     <% end %>
