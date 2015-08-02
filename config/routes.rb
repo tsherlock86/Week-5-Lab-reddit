@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :links do
     member do
-      post 'upvote'
-      post 'downvote'
       get 'upvotedlink'
+      post 'upvoted', :as => :upvoted
+      post 'downvoted', :as => :downvoted 
     end
   end
 
@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-
+  # post 'upvoted/:id' => 'links#upvoted', :as => :upvoted
+  #
+  # post 'downvoted/:id' => 'links#downvoted', :as => :downvoted
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

@@ -4,26 +4,26 @@ has_many :votes, dependent: :destroy
 
 belongs_to :user
 
-has_many :votes
+  def upvote
+    votes.first.upvote += 1
+  end
 
-def upvote
-  @link = Link.find(params[:id])
-  @link.votes.create
-  @link.save
-  redirect_to(links_path)
-end
+  def downvote
+    votes.first.downvote += 1
+  end
 
-def downvote
-  @link = Link.find(params[:id])
-  @link.votes.first.destroy
-  redirect_to(links_path)
-end
+  def scoring
+    upvotecount - downvotecount
+  end
 
-def upvotedlink
-  @link = Link.find(params[:id])
-  @link.votes.create
-  redirect_to (@link.url)
-end
+  def upvotecount
+    votes.first.upvote
+  end
+
+  def downvotecount
+    votes.first.downvote
+  end
+
 
 
 end

@@ -9,13 +9,13 @@
     <ul class="list-inline">
 
       <% if link.user == current_user %>
-      <li><%= button_to '+1', upvote_link_path(link), method: :post %></li>
-      <li><%= button_to '-1', downvote_link_path(link), method: :post %></li>
+      <li><%= button_to '+1', upvoted_link_path(:id => link.id), method: :post %></li>
+      <li><%= button_to '-1', downvoted_link_path(:id => link.id), method: :post %></li>
       <li><%= link_to 'show', link %></li>
       <li><%= link_to 'edit', edit_link_path(:id => link.id) %></li>
       <li><%= link_to 'delete', link, method: :delete, data: { confirm: 'Are you sure?' } %></li>
       <% end %>
-      <td><%= pluralize(link.votes.count, "vote") %><small class="author"> Submitted <%= time_ago_in_words(link.created_at) %> by <%= link.user.try(:name)%></small></td>
+      <td><%= pluralize(link.scoring, "vote") %><small class="author"> Submitted <%= time_ago_in_words(link.created_at) %> by <%= link.user.try(:name)%></small></td>
 
     </ul>
     <% end %>

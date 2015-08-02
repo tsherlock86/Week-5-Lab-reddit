@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
+  before_action :set_link, only: [:show, :edit, :update, :destroy, :upvoted, :downvoted]
   before_action :authenticate_user!, :except => [:index, :show]
   before_action :authorized_user, only: [:edit, :update, :destroy]
   before_action :user_select, only: [:new, :edit, :update, :create]
@@ -18,6 +18,7 @@ class LinksController < ApplicationController
   # GET /links/new
   def new
     @link = current_user.links.build
+    @link.votes << Vote.create(:upvote => 0, :downvote => 0)
   end
 
   # GET /links/1/edit
@@ -28,6 +29,7 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = current_user.links.build(link_params)
+    @link.votes << Vote.create(:upvote => 0, :downvote => 0)
 
     respond_to do |format|
       if @link.save
@@ -64,6 +66,21 @@ class LinksController < ApplicationController
     end
   end
 
+  def upvoted
+    @link.upvote
+    redirect_to(links_path)
+  end
+
+  def downvoted
+    @link.downvote
+    redirect_to(links_path)
+  end
+
+  def upvotedlink
+    @link = Link.find(params[:id])
+    @link.upvote
+    redirect_to (@link.url)
+  end
 
   def authorized_user
     @link = current_user.links.find_by(id: params[:id])
