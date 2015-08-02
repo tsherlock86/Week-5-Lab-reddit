@@ -2,6 +2,7 @@ class LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, :except => [:index, :show]
   before_action :authorized_user, only: [:edit, :update, :destroy]
+  before_action :user_select, only: [:new, :edit, :update, :create]
   # GET /links
   # GET /links.json
   def index
@@ -63,24 +64,6 @@ class LinksController < ApplicationController
     end
   end
 
-  def upvote
-    @link = Link.find(params[:id])
-    @link.votes.create
-    @link.save
-    redirect_to(links_path)
-  end
-
-  def downvote
-    @link = Link.find(params[:id])
-    @link.votes.first.destroy
-    redirect_to(links_path)
-  end
-
-  def upvotedlink
-    @link = Link.find(params[:id])
-    @link.votes.create
-    redirect_to (@link.url)
-  end
 
   def authorized_user
     @link = current_user.links.find_by(id: params[:id])
@@ -93,8 +76,12 @@ class LinksController < ApplicationController
       @link = Link.find(params[:id])
     end
 
+    def user_select
+      @user_options = User.all.collect{ |user| [user.name, user.id] }
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:title, :summary, :url, :link_id, :vote)
+      params.require(:link).permit(:title, :summary, :url, :name, :link_id, :vote)
     end
 end
