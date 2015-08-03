@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   resources :links do
     member do
@@ -7,8 +8,12 @@ Rails.application.routes.draw do
       post 'downvoted', :as => :downvoted
     end
   end
+  
+  resources :subreddits do
+    resources :links
+  end
 
-  resources :votes
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

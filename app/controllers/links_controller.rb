@@ -3,11 +3,17 @@ class LinksController < ApplicationController
   before_action :authenticate_user!, :except => [:index, :show]
   before_action :authorized_user, only: [:edit, :update, :destroy]
   before_action :user_select, only: [:new, :edit, :update, :create]
+  before_action :sub_select, only: [:new, :edit, :update, :create]
 
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all.sort_by{|link| link.votes.count - link.downvotes.count}.reverse
+    if params[:subreddit_id]
+      @subreddit = Subreddit.where(:name => params[:subreddit_id]).first
+      @links = @subreddit.links.all
+    else
+      @links = Link.all.sort_by{|link| link.votes.count - link.downvotes.count}.reverse
+    end
   end
 
   # GET /links/1
@@ -97,6 +103,10 @@ class LinksController < ApplicationController
 
     def set_link
       @link = Link.find(params[:id])
+    end
+
+    def sub_select
+      @sub_options = Subreddit.all.collect{ |subreddit| [subreddit.name, subreddit.id] }
     end
 
     def user_select
