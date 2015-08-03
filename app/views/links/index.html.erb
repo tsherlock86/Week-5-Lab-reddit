@@ -6,21 +6,20 @@
     </h2>
 
     <div class="btn-group">
-      <a class="btn btn-default btn-sm" href="<%= link.url %>">Visit Link</a>
+      <a class="btn btn-info btn-sm" href="<%= link.url %>">Visit Link</a>
       <%= link_to upvoted_link_path(link), method: :post, class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-chevron-up"></span>
       <% end %>
       <%= link_to downvoted_link_path(link), method: :post, class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-chevron-down">
-        <%= pluralize(link.votes.count - link.downvotes.count, "vote") %>
-      <% end %>
+        <%= pluralize(link.scoring, "vote") %>
+        <% end %>
+        <% if link.user == current_user %>
+        	<div class="btn-group">
+        		<%= link_to 'edit', edit_link_path(link), class: "btn btn-default btn-sm" %>
+        		<%= link_to 'delete', @link, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+        	</div>
+        <% end %>
     </div>
   </div>
-
-<% if link.user == current_user %>
-	<div class="btn-group">
-		<%= link_to 'edit', edit_link_path(link), class: "btn btn-default" %>
-		<%= link_to 'delete', @link, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
-	</div>
-<% end %>
 <% end %>

@@ -7,7 +7,7 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all.sort_by{|link| link.votes.size}.reverse
+    @links = Link.all.sort_by{|link| link.votes.count - link.downvotes.count}.reverse
   end
 
   # GET /links/1
@@ -19,7 +19,7 @@ class LinksController < ApplicationController
   # GET /links/new
   def new
     @link = current_user.links.build
-    @link.votes << Vote.create(:upvote => 0, :downvote => 0)
+    # @link.votes << Vote.create(:upvote => 0, :downvote => 0)
   end
 
   # GET /links/1/edit
@@ -30,7 +30,7 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = current_user.links.build(link_params)
-    @link.votes << Vote.create(:upvote => 0, :downvote => 0)
+    # @link.votes << Vote.create(:upvote => 0, :downvote => 0)
 
     respond_to do |format|
       if @link.save
@@ -70,12 +70,14 @@ class LinksController < ApplicationController
   def upvoted
     @link = Link.find(params[:id])
     @link.votes.create
+    @link.save
     redirect_to(links_path)
   end
 
   def downvoted
     @link = Link.find(params[:id])
     @link.downvotes.create
+    @link.save
     redirect_to(links_path)
   end
 
@@ -92,6 +94,7 @@ class LinksController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
     def set_link
       @link = Link.find(params[:id])
     end
