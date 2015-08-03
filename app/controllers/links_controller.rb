@@ -1,8 +1,9 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: [:show, :edit, :update, :destroy, :upvoted, :downvoted]
+  before_action :set_link, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, :except => [:index, :show]
   before_action :authorized_user, only: [:edit, :update, :destroy]
   before_action :user_select, only: [:new, :edit, :update, :create]
+
   # GET /links
   # GET /links.json
   def index
@@ -68,20 +69,19 @@ class LinksController < ApplicationController
 
   def upvoted
     @link = Link.find(params[:id])
-    @link.upvote
+    @link.votes.create
     redirect_to(links_path)
   end
 
   def downvoted
     @link = Link.find(params[:id])
-    @link.downvote
+    @link.downvotes.create
     redirect_to(links_path)
   end
 
   def upvotedlink
     @link = Link.find(params[:id])
-    @link.upvote
-    @link.update.save
+    @link.votes.create
     redirect_to (@link.url)
   end
 

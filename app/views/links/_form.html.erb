@@ -4,23 +4,23 @@
       <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
       <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :summary %><br>
     <%= f.text_field :summary %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :url %><br>
     <%= f.text_field :url %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :user_id %><br>
     <%= f.select :user_id, options_for_select(@user_options, @link.user_id), :prompt => " "  %>
   </div>
-  <div class="actions">
+  <div class="form-group">
     <%= f.submit %>
   </div>
 <% end %>

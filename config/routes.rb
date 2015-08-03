@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     member do
       get 'upvotedlink'
       post 'upvoted', :as => :upvoted
-      post 'downvoted', :as => :downvoted 
+      post 'downvoted', :as => :downvoted
     end
   end
 
