@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :comments
   devise_for :users
   resources :links do
     member do
@@ -7,9 +8,11 @@ Rails.application.routes.draw do
       post 'upvoted', :as => :upvoted
       post 'downvoted', :as => :downvoted
     end
+    resources :comments
   end
-  
-  resources :subreddits do
+
+
+  resources :subreddits, :path => "/", :only => [:index, :show, :edit, :new, :create] do
     resources :links
   end
 

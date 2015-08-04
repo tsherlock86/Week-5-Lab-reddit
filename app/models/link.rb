@@ -8,6 +8,8 @@ belongs_to :user
 
 belongs_to :subreddit
 
+ has_many :comments
+
 # before_save :linkchecking
 
 def scoring

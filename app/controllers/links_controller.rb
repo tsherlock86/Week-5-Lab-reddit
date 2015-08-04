@@ -90,6 +90,7 @@ class LinksController < ApplicationController
   def upvotedlink
     @link = Link.find(params[:id])
     @link.votes.create
+    @link.save
     redirect_to (@link.url)
   end
 

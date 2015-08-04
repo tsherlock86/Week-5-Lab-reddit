@@ -26,3 +26,17 @@
 		<%= link_to 'delete', @link, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
 	</div>
 <% end %>
+<h3 class="comments_title">
+  <%= pluralize(@link.comments.count, "Comment") %> 
+</h3>
+
+<div id="comments">
+  <%= render :partial => @link.comments  %>
+</div>
+<%= simple_form_for [@link, Comment.new] do |f| %>
+  <div class="field">
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+  <br>
+  <%= f.submit "Add Comment", class: "btn btn-primary" %>
+<% end %>
