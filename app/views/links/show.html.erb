@@ -23,17 +23,11 @@
 <% if @link.user == current_user -%>
 	<div class="btn-group">
 		<%= link_to 'edit', edit_link_path(@link), class: "btn btn-default" %>
-<<<<<<< HEAD
-		<%= link_to 'delete', @link, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
-	   <%= link_to 'back', links_path, class: "btn btn-default" %>
-  </div>
-=======
 		<%= link_to 'delete', @link, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
 	</div>
->>>>>>> moar
 <% end %>
 <h3 class="comments_title">
-  <%= pluralize(@link.comments.count, "Comment") %> 
+  <%= pluralize(@link.comments.count, "Comment") %>
 </h3>
 
 <div id="comments">
