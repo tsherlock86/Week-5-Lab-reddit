@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803025749) do
+ActiveRecord::Schema.define(version: 20150803234112) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "link_id"
+    t.text     "body"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["link_id"], name: "index_comments_on_link_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "downvotes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -23,14 +34,21 @@ ActiveRecord::Schema.define(version: 20150803025749) do
     t.string   "title"
     t.string   "url"
     t.integer  "link_id"
-    t.integer  "votes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "score"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "summary"
     t.integer  "user_id"
+    t.integer  "subreddit_id"
   end
 
   add_index "links", ["user_id"], name: "index_links_on_user_id"
+
+  create_table "subreddits", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -55,8 +73,7 @@ ActiveRecord::Schema.define(version: 20150803025749) do
     t.integer  "link_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "upvote"
-    t.integer  "downvote"
+    t.integer  "user_id"
   end
 
 end

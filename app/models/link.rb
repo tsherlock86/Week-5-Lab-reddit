@@ -6,26 +6,24 @@ has_many :downvotes
 
 belongs_to :user
 
-  # def upvote
-  #
-  #   votes.first.upvote += 1
-  # end
-  #
-  # def downvote
-  #   votes.first.upvote += 1
-  # end
-  #
-  # def scoring
-  #   votes.first.upvote - votes.first.downvote
-  # end
-  #
-  # def upvotecount
-  #   votes.first.upvote
-  # end
-  #
-  # def downvotecount
-  #     votes.first.downvote
-  # end
+belongs_to :subreddit
+
+ has_many :comments
+
+# before_save :linkchecking
+
+def scoring
+  self.votes.count - self.downvotes.count
+end
+
+# def linkchecking
+#   link = Link.where(:url => self.url).first
+#   if link == true
+#     self.votes.create
+#   else
+#
+#   end
+# end
 
 
 

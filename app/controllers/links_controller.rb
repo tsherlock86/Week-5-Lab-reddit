@@ -3,11 +3,17 @@ class LinksController < ApplicationController
   before_action :authenticate_user!, :except => [:index, :show]
   before_action :authorized_user, only: [:edit, :update, :destroy]
   before_action :user_select, only: [:new, :edit, :update, :create]
+  before_action :sub_select, only: [:new, :edit, :update, :create]
 
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all.sort_by{|link| link.votes.size}.reverse
+    if params[:subreddit_id]
+      @subreddit = Subreddit.where(:name => params[:subreddit_id]).first
+      @links = @subreddit.links.all
+    else
+      @links = Link.all.sort_by{|link| link.votes.count - link.downvotes.count}.reverse
+    end
   end
 
   # GET /links/1
@@ -19,7 +25,7 @@ class LinksController < ApplicationController
   # GET /links/new
   def new
     @link = current_user.links.build
-    @link.votes << Vote.create(:upvote => 0, :downvote => 0)
+    # @link.votes << Vote.create(:upvote => 0, :downvote => 0)
   end
 
   # GET /links/1/edit
@@ -30,7 +36,7 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = current_user.links.build(link_params)
-    @link.votes << Vote.create(:upvote => 0, :downvote => 0)
+    # @link.votes << Vote.create(:upvote => 0, :downvote => 0)
 
     respond_to do |format|
       if @link.save
@@ -70,18 +76,21 @@ class LinksController < ApplicationController
   def upvoted
     @link = Link.find(params[:id])
     @link.votes.create
+    @link.save
     redirect_to(links_path)
   end
 
   def downvoted
     @link = Link.find(params[:id])
     @link.downvotes.create
+    @link.save
     redirect_to(links_path)
   end
 
   def upvotedlink
     @link = Link.find(params[:id])
     @link.votes.create
+    @link.save
     redirect_to (@link.url)
   end
 
@@ -92,8 +101,13 @@ class LinksController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
     def set_link
       @link = Link.find(params[:id])
+    end
+
+    def sub_select
+      @sub_options = Subreddit.all.collect{ |subreddit| [subreddit.name, subreddit.id] }
     end
 
     def user_select
