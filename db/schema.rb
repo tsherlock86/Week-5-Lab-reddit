@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803234112) do
+ActiveRecord::Schema.define(version: 20150804180856) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "link_id"
     t.text     "body"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "nested_id"
+    t.string   "nested_type"
   end
 
   add_index "comments", ["link_id"], name: "index_comments_on_link_id"

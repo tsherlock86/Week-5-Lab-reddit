@@ -12,10 +12,6 @@ belongs_to :subreddit
 
 # before_save :linkchecking
 
-def scoring
-  self.votes.count - self.downvotes.count
-end
-
 # def linkchecking
 #   link = Link.where(:url => self.url).first
 #   if link == true

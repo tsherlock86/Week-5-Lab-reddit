@@ -12,7 +12,8 @@ class LinksController < ApplicationController
       @subreddit = Subreddit.where(:name => params[:subreddit_id]).first
       @links = @subreddit.links.all
     else
-      @links = Link.all.sort_by{|link| link.votes.count - link.downvotes.count}.reverse
+      @links = Link.all.sort_by{|link| link.score}.reverse
+      # @links = Link.order("links.score DESC")
     end
   end
 
@@ -76,6 +77,7 @@ class LinksController < ApplicationController
   def upvoted
     @link = Link.find(params[:id])
     @link.votes.create
+    @link.score = (@link.votes.count - @link.downvotes.count)
     @link.save
     redirect_to(links_path)
   end
@@ -83,6 +85,7 @@ class LinksController < ApplicationController
   def downvoted
     @link = Link.find(params[:id])
     @link.downvotes.create
+    @link.score = (@link.votes.count - @link.downvotes.count)
     @link.save
     redirect_to(links_path)
   end
