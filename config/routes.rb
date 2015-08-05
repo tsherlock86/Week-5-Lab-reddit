@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resources :comments
+
   devise_for :users
+
   resources :links do
     member do
       get 'upvotedlink'
@@ -16,6 +18,8 @@ Rails.application.routes.draw do
   resources :subreddits, :path => "/r", :only => [:index, :show, :edit, :new, :create] do
     resources :links
   end
+
+  
 
 
   # The priority is based upon order of creation: first created -> highest priority.
