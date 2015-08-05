@@ -8,9 +8,6 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :downvotes
   has_many :comments
-  has_one :profile
-  accepts_nested_attributes_for :profile
-
 
 
 
