@@ -11,7 +11,7 @@
       <% end %>
       <%= link_to downvoted_link_path(link), method: :post, class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-chevron-down">
-          <%= pluralize(link.votes.count - link.downvotes.count, "vote") %>
+          <%= pluralize(link.score, "vote") %>
       <% end %>
         <% if link.user == current_user %>
         	<div class="btn-group">

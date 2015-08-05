@@ -29,13 +29,10 @@
   <%= pluralize(@link.comments.count, "Comment") %>
 </h3>
 
-<div id="comments">
-  <%= render :partial => @link.comments  %>
-</div>
-<%= simple_form_for [@link, Comment.new] do |f| %>
-  <div class="field">
-    <%= f.text_area :body, class: "form-control" %>
-  </div>
-  <br>
-  <%= f.submit "Add Comment", class: "btn btn-primary" %>
+<% if current_user %>
+  <%= render :partial => 'comments/form', :locals => {:nested_object => @link} %>
 <% end %>
+
+<div id="comments">
+  <%= render :partial => "comments/comment", :collection => @link.comments %>
+</div>

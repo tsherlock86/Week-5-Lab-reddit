@@ -20,13 +20,13 @@ class LinksController < ApplicationController
   # GET /links/1
   # GET /links/1.json
   def show
-
+    @comment = Comment.new
   end
 
   # GET /links/new
   def new
     @link = current_user.links.build
-    # @link.votes << Vote.create(:upvote => 0, :downvote => 0)
+
   end
 
   # GET /links/1/edit
@@ -37,7 +37,6 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = current_user.links.build(link_params)
-    # @link.votes << Vote.create(:upvote => 0, :downvote => 0)
 
     respond_to do |format|
       if @link.save

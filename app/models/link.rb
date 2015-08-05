@@ -8,7 +8,7 @@ belongs_to :user
 
 belongs_to :subreddit
 
- has_many :comments
+ has_many :comments, :as => :nested
 
 # before_save :linkchecking
 
