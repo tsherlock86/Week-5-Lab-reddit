@@ -17,8 +17,8 @@
     <%= f.text_field :url %>
   </div>
   <div class="form-group">
-    <%= f.label :subreddit %><br>
-    <%= f.select :subreddit, options_for_select(@sub_options, @link.subreddit_id), :prompt => " " %>
+    <%= f.label :subreddit_id %><br>
+    <%= f.select :subreddit_id, options_for_select(@sub_options, @link.subreddit_id), :prompt => " " %>
   </div>
   <div class="form-group">
     <%= f.label :user_id %><br>
