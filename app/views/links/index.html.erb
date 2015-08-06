@@ -2,9 +2,8 @@
   <div class="link row clearfix">
     <h2>
       <%= link_to link.title, link %><br>
-      <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> ago by <%= link.user.try(:name) %><%=  %></small>
+      <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> ago by <%= link.user.try(:name) %> on r/<%= link_to link.subreddit.name, subreddit_links_path(:subreddit_id => link.subreddit.name) %></small>
     </h2>
-
     <div class="btn-group">
       <a class="btn btn-info btn-sm" href="<%= link.url %>">Visit Link</a>
       <%= link_to upvoted_link_path(link), method: :post, class: "btn btn-default btn-sm" do %>
@@ -12,8 +11,8 @@
       <% end %>
       <%= link_to downvoted_link_path(link), method: :post, class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-chevron-down">
-        <%= pluralize(link.votes.count - link.downvotes.count, "vote") %>
-        <% end %>
+          <%= pluralize(link.score, "vote") %>
+      <% end %>
         <% if link.user == current_user %>
         	<div class="btn-group">
         		<%= link_to 'edit', edit_link_path(link), class: "btn btn-default btn-sm" %>

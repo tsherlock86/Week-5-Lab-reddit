@@ -5,6 +5,7 @@ class SubredditsController < ApplicationController
   # GET /subreddits.json
   def index
     @subreddits = Subreddit.all
+    # @links = Link.all.sort_by{|link| link.votes.count - link.downvotes.count}.reverse
   end
 
   # GET /subreddits/1

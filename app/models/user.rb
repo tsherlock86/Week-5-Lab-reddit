@@ -5,10 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :links
-
   has_many :votes
-
   has_many :downvotes
+  has_many :comments
+
+
 
 
 end

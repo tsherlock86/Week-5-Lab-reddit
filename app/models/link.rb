@@ -8,13 +8,9 @@ belongs_to :user
 
 belongs_to :subreddit
 
- has_many :comments
+ has_many :comments, :as => :nested
 
 # before_save :linkchecking
-
-def scoring
-  self.votes.count - self.downvotes.count
-end
 
 # def linkchecking
 #   link = Link.where(:url => self.url).first

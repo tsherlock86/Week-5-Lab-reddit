@@ -11,8 +11,9 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+    root 'links#index'
 
-  resources :subreddits, :path => "/", :only => [:index, :show, :edit, :new, :create] do
+  resources :subreddits, :path => "/r", :only => [:index, :show, :edit, :new, :create] do
     resources :links
   end
 
@@ -21,7 +22,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'links#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
