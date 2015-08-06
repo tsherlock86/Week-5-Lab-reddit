@@ -9,6 +9,4 @@ class User < ActiveRecord::Base
   has_many :downvotes
   has_many :comments
 
-
-
 end
