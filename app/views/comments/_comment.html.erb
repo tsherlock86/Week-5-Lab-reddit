@@ -1,15 +1,16 @@
-<div class="comments_wrapper clearfix">
-  <div class="pull-left">
-    <p class="lead"><%= comment.body %></p>
-    <p><small>Submitted <strong><%= time_ago_in_words(comment.created_at) %> ago</strong> by <%= comment.user.try(:name) %></small></p>
-  </div>
+<div class="hidden_comments">
+  <div class="comments_wrapper clearfix">
+    <div class="pull-left">
+      <p class="lead"><%= comment.body %></p>
+      <p><small>submitted <strong><%= time_ago_in_words(comment.created_at) %> ago</strong> by <%= comment.user.try(:name) %></small></p>
+    </div>
 
-  <div class="btn-group pull-right">
-    <% if comment.user == current_user -%>
-    <%= link_to 'delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
-    <% end %>
+    <div class="btn-group pull-right">
+      <% if comment.user == current_user -%>
+        <%= link_to 'delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+      <% end %>
+    </div>
   </div>
+    <%= render :partial => "comments/form", :locals => {:nested_object => comment} %>
+    <%= render :partial => "comments/comment", :collection => comment.comments %>
 </div>
-
-<%= render :partial => "comments/form", :locals => {:nested_object => comment} %>
- <%= render :partial => "comments/comment", :collection => comment.comments %>

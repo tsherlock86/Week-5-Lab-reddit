@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+ .navbar-default {
+   background-color: #cee3f8 !important;
+ }
